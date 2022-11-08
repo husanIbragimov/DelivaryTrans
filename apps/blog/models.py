@@ -14,7 +14,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     description = models.TextField()
-    date_create = models.DateTimeField(auto_now_add=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True, blank=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
