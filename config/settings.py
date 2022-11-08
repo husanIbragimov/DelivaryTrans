@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # build apps
     'rest_framework',
     'rest_framework_simplejwt',
+    'ckeditor',
     'drf_yasg',
     'corsheaders',
 
