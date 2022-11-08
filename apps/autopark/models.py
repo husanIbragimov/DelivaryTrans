@@ -17,6 +17,7 @@ class Car(models.Model):
     car_weight = models.FloatField(default=0.0)
     car_length = models.FloatField(default=0.0)
     description = RichTextField()
+    is_active = models.BooleanField(default=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
