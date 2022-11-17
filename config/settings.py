@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'apps.autopark',
     'apps.blog',
     'apps.contact',
+    'apps.order',
 
 ]
 
@@ -187,6 +188,16 @@ EMAIL_PORT = 587
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_USER = 'xusanibragimov304@gmail.com'
 EMAIL_HOST_PASSWORD = 'kgorlzgjwpflmnba'
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=7),

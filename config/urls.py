@@ -54,6 +54,7 @@ urlpatterns += [
     path('account/', include('apps.account.api.urls')),
     path('about-company/', include('apps.about_company.api.urls')),
     path('autopark/', include('apps.autopark.api.urls')),
+    path('order/', include('apps.order.api.urls')),
     path('blog/', include('apps.blog.api.urls')),
     path('contact/', include('apps.contact.api.urls')),
 ]
