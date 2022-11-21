@@ -125,3 +125,33 @@ class SetNewPasswordSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return attrs
+
+
+class ChangeNewPasswordSerializer(serializers.ModelSerializer):
+    old_password = serializers.CharField(min_length=6, max_length=64, write_only=True)
+    password = serializers.CharField(min_length=6, max_length=64, write_only=True)
+    password2 = serializers.CharField(min_length=6, max_length=64, write_only=True)
+
+    class Meta:
+        model = Account
+        fields = ('old_password', 'password', 'password2')
+
+    def validate(self, attrs):
+        old_password = attrs.get('old_password')
+        password = attrs.get('password')
+        password2 = attrs.get('password2')
+        request = self.context.get('request')
+        user = request.user
+        if not user.check_password(old_password):
+            print(55555555)
+            raise serializers.ValidationError(
+                {'success': False, 'message': 'Old password did not match, please try again new'})
+
+        if password != password2:
+            print(321)
+            raise serializers.ValidationError(
+                {'success': False, 'message': 'Password did not match, please try again new'})
+
+        user.set_password(password)
+        user.save()
+        return attrs

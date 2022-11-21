@@ -14,7 +14,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from apps.account.api.v1.permissions import IsOwnUserOrReadOnly
 # from apps.account.api.v1.permissions import IsOwnUserOrReadOnly
 from apps.account.api.v1.serializers import RegisterSerializer, LoginSerializer, AccountUpdateSerializer, \
-    AccountOwnImageUpdateSerializer, SetNewPasswordSerializer, EmailVerificationSerializer, ResetPasswordSerializer
+    AccountOwnImageUpdateSerializer, SetNewPasswordSerializer, EmailVerificationSerializer, ResetPasswordSerializer, \
+    ChangeNewPasswordSerializer
 from apps.account.api.v1.utils import Util
 from apps.account.models import Account
 
@@ -224,3 +225,15 @@ class AccountListView(generics.ListAPIView):
             return Response({'success': True, 'count': count, 'data': serializer.data}, status=status.HTTP_200_OK)
         return Response({'success': False, 'data': 'queryset does not match'}, status=status.HTTP_404_NOT_FOUND)
 
+
+class ChangePasswordCompletedView(generics.UpdateAPIView):
+    # http://127.0.0.1:8000/account/change-password/
+    queryset = Account.objects.all()
+    serializer_class = ChangeNewPasswordSerializer
+    permission_classes = (IsAuthenticated,)
+    lookup_field = 'pk'
+
+    def patch(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        return Response({'success': True, 'message': 'Successfully set new password'}, status=status.HTTP_200_OK)
